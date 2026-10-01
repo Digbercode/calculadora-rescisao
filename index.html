@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculadora de Rescisão | Estimativa gratuita</title>
+<meta name="description" content="Estime valores de rescisão, férias, 13º, FGTS, multa e descontos de forma simples e detalhada.">
+<meta name="robots" content="index,follow">
+<meta property="og:title" content="Calculadora de Rescisão">
+<meta property="og:description" content="Uma estimativa simples e detalhada para ajudar trabalhadores a entender os valores da saída do emprego.">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#18365e">
+<link rel="canonical" href="https://calculorecisaoestimado.netlify.app/">
+<meta property="og:url" content="https://calculorecisaoestimado.netlify.app/">
+<meta property="og:site_name" content="Calculadora de Rescisão">
+<meta property="og:locale" content="pt_BR">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+
+<link rel="stylesheet" href="style.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebApplication", "name": "Calculadora de Rescisão", "url": "https://calculorecisaoestimado.netlify.app/", "applicationCategory": "FinanceApplication", "operatingSystem": "Web", "inLanguage": "pt-BR", "description": "Calculadora gratuita para estimar verbas de rescisão, férias, 13º, FGTS, multa e descontos.", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "BRL"}}</script>
+<!-- Google Analytics --><script async src="https://www.googletagmanager.com/gtag/js?id=G-B3NLEEHLBJ"></script><script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag('js',new Date());gtag('config','G-B3NLEEHLBJ');</script><script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8768436163487739" crossorigin="anonymous"></script>
+</head>
+<body>
+<header>
+  <div class="brand">Calculadora de Rescisão</div>
+  <div class="tag">Estimativa simples, detalhada e gratuita</div>
+</header>
+
+<div class="ad ad-top"><span>ESPAÇO PUBLICITÁRIO · 970 × 90</span></div>
+
+<div class="page">
+<aside class="rail"><div class="ad sticky"><span>ESPAÇO PUBLICITÁRIO<br>300 × 600</span></div></aside>
+
+<main>
+<section class="hero">
+  <span class="pill">Projeto gratuito</span>
+  <h1>Entenda melhor quanto você pode receber na sua saída do trabalho</h1>
+  <p>Este é um projeto simples criado para ajudar trabalhadores a visualizar, de forma organizada, uma <strong>estimativa</strong> das principais verbas de uma rescisão. Preencha seus dados e acompanhe a memória do cálculo na própria tela.</p>
+  <div class="ad-joke">😅 E sim... desculpa pelos anúncios nas laterais. A calculadora é gratuita e, convenhamos, qualquer oportunidade honesta de pagar o café e manter o site no ar é válida.</div>
+</section>
+
+<section class="card">
+<div class="section-title"><b>1</b><div><h2>Dados do funcionário e desligamento</h2><p>Preencha os campos amarelos. O cálculo é atualizado automaticamente.</p></div></div>
+<div class="form-grid">
+<label>Salário bruto mensal<input id="salary" type="number" value="3000" min="0" step="0.01"></label>
+<label>Data de admissão<input id="start" type="date"></label>
+<label>Data de desligamento<input id="end" type="date"></label>
+<label>Tipo de desligamento<select id="type"><option>Demissão sem justa causa</option><option>Pedido de demissão</option><option>Demissão por justa causa</option><option>Acordo entre as partes</option></select></label>
+<label>Aviso-prévio<select id="notice"><option>Indenizado</option><option>Trabalhado</option><option>Dispensado</option></select></label>
+<label>Dias de aviso trabalhados<input id="noticeDaysWorked" type="number" value="0" min="0"></label>
+<label>Dias trabalhados no mês da saída<input id="days" type="number" value="15" min="0" max="31"></label>
+<label>Saldo de salário já foi pago?<select id="salaryPaid"><option>Não</option><option>Sim</option></select></label>
+<label>Quantidade de férias tiradas<input id="vacTaken" type="number" value="0" min="0" step="1"></label>
+<label>Benefício mensal de alimentação<input id="food" type="number" value="0" min="0" step="0.01"></label>
+</div>
+</section>
+
+<section class="card">
+<div class="section-title"><b>2</b><div><h2>Contagem automática</h2><p>Períodos identificados a partir das datas informadas.</p></div></div>
+<div class="stats">
+<div><span>Meses de FGTS</span><strong id="fgtsMonths">0</strong></div>
+<div><span>Avos de 13º</span><strong id="avos13">0</strong></div>
+<div><span>Períodos completos de férias</span><strong id="vacPeriods">0</strong></div>
+<div><span>Férias vencidas a pagar</span><strong id="vacDue">0</strong></div>
+<div><span>FGTS do mês</span><strong id="fgtsMonth">R$ 0,00</strong></div>
+</div>
+</section>
+
+<section class="card">
+<div class="section-title green"><b>3</b><div><h2>Recebimentos / verbas</h2><p>Valores calculados seguindo o modelo da planilha.</p></div></div>
+<div id="receipts" class="rows"></div>
+</section>
+
+<div class="ad ad-inline"><span>ESPAÇO PUBLICITÁRIO · 728 × 90</span></div>
+
+<section class="card">
+<div class="section-title red"><b>4</b><div><h2>Descontos</h2><p>Descontos exibidos separadamente para facilitar a conferência.</p></div></div>
+<div id="discounts" class="rows"></div>
+</section>
+
+<section class="result-card">
+<span>Resultado estimado</span>
+<div class="result-grid">
+<div><small>Total de descontos</small><strong id="totalDiscounts">R$ 0,00</strong></div>
+<div><small>Se saque-rescisão</small><strong id="terminationWithdrawal">R$ 0,00</strong></div>
+<div><small>Se saque-aniversário</small><strong id="birthdayWithdrawal">R$ 0,00</strong></div>
+</div>
+<div class="actions">
+<button id="printBtn" type="button">Imprimir / salvar em PDF</button>
+<button id="shareBtn" type="button">Compartilhar calculadora</button>
+</div>
+</section>
+
+<section class="card info">
+<h2>Entenda os cálculos</h2>
+<details><summary>13º salário proporcional</summary><p>Considera os meses do ano do desligamento conforme a lógica adotada na planilha, incluindo a regra de 15 dias.</p></details>
+<details><summary>Férias</summary><p>O valor usa salário ÷ 12 × meses considerados, descontando 12 meses para cada período informado em “Quantidade de férias tiradas”. O adicional de 1/3 é mostrado separadamente.</p></details>
+<details><summary>FGTS e multa</summary><p>O saldo acumulado exibido é uma estimativa. O extrato oficial do FGTS continua sendo a referência para conferência.</p></details>
+<details><summary>Descontos</summary><p>A versão 1.5 segue os parâmetros do modelo fornecido: INSS de 8%, vale-transporte de 7%, alimentação de 10%, IRRF estimado e outros descontos zerados.</p></details>
+</section>
+
+<section class="card about">
+<h2>Sobre este projeto</h2>
+<p>A ideia nasceu para transformar uma planilha de rescisão em uma ferramenta mais fácil de usar no celular ou computador. O objetivo é ajudar na organização e compreensão dos valores, não substituir documentos oficiais nem uma análise profissional.</p>
+<p>Os cálculos desta versão reproduzem a lógica do arquivo-modelo usado no desenvolvimento. Como regras trabalhistas e tributárias podem variar ou mudar, confira os resultados antes de tomar decisões com base neles.</p>
+</section>
+
+<section class="card faq">
+<h2>Perguntas frequentes</h2>
+<details><summary>O resultado é oficial?</summary><p>Não. É uma estimativa para facilitar a compreensão e a conferência inicial da rescisão.</p></details>
+<details><summary>Por que o FGTS aparece como estimativa?</summary><p>O saldo real depende dos depósitos efetivamente realizados. Para confirmação, consulte o extrato oficial.</p></details>
+<details><summary>Meus dados são enviados para algum servidor?</summary><p>Nesta versão, os cálculos acontecem no próprio navegador e o projeto não possui cadastro ou banco de dados para guardar os valores preenchidos.</p></details>
+<details><summary>Posso imprimir meu resultado?</summary><p>Sim. Use o botão “Imprimir / salvar em PDF” e escolha a opção de PDF na janela de impressão do navegador.</p></details>
+</section>
+
+
+<section class="card content-hub">
+<h2>Aprenda antes de calcular</h2>
+<p>Se algum campo da calculadora parecer confuso, consulte nossos guias rápidos:</p>
+<div class="guide-grid">
+<a href="guia-rescisao.html"><strong>Guia da rescisão</strong><span>Visão geral das principais verbas.</span></a>
+<a href="ferias-proporcionais.html"><strong>Férias</strong><span>Entenda períodos e proporcionalidade.</span></a>
+<a href="decimo-terceiro.html"><strong>13º proporcional</strong><span>Veja como os avos são considerados.</span></a>
+<a href="fgts-rescisao.html"><strong>FGTS e multa</strong><span>Saldo estimado e multa rescisória.</span></a>
+<a href="aviso-previo.html"><strong>Aviso-prévio</strong><span>Entenda o campo usado na calculadora.</span></a>
+<a href="descontos-rescisao.html"><strong>Descontos</strong><span>Veja o que aparece separado no resultado.</span></a>
+</div>
+</section>
+
+<p class="legal">Esta ferramenta fornece uma estimativa e não substitui TRCT, folha, eSocial, extrato do FGTS, convenção coletiva ou orientação profissional.</p>
+</main>
+
+<aside class="rail"><div class="ad sticky"><span>ESPAÇO PUBLICITÁRIO<br>300 × 600</span></div></aside>
+</div>
+
+<div class="ad ad-bottom"><span>ESPAÇO PUBLICITÁRIO · 970 × 90</span></div>
+<footer>
+<span>Calculadora de Rescisão · versão 1.5</span>
+<nav><a href="sobre.html">Sobre</a><a href="guia-rescisao.html">Guia da rescisão</a><a href="ferias-proporcionais.html">Férias</a><a href="decimo-terceiro.html">13º</a><a href="fgts-rescisao.html">FGTS</a><a href="privacidade.html">Privacidade</a><a href="termos.html">Termos</a></nav>
+</footer>
+<script src="app.js"></script>
+</body></html>
