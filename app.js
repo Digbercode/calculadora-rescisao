@@ -16,8 +16,25 @@ function calc(){
  const salaryBal=paid?0:salary/30*days;
  const noticeDays=Math.min(90,30+Math.max(0,Math.min(60,Math.floor(dayDiff(a,b)/365)*3)));
  const noticePay=(type==='Demissão sem justa causa'||type==='Acordo entre as partes')&&notice==='Indenizado'?salary/30*noticeDays:0;
- const avos13=(type==='Demissão por justa causa'||type==='Pedido de demissão')?0:Math.max(0,(b.getMonth()+1)-(a.getFullYear()===b.getFullYear()?(a.getMonth()+1):1)+1-(a.getDate()>15?1:0)-(b.getDate()<15?1:0));
- const thirteenth=(type==='Demissão por justa causa'||type==='Pedido de demissão')?0:salary/12*avos13;
+ // 13º: conta somente os meses do ano civil da rescisão.
+ // Cada mês vale 1/12 quando houve pelo menos 15 dias trabalhados nele.
+ let avos13=0;
+ if(type!=='Demissão por justa causa'){
+   const ano=b.getFullYear();
+   const inicioAno=new Date(ano,0,1,12);
+   const inicioContrato=a>inicioAno?a:inicioAno;
+   for(let mes=0;mes<=b.getMonth();mes++){
+     const inicioMes=new Date(ano,mes,1,12);
+     const fimMes=new Date(ano,mes+1,0,12);
+     const inicioTrabalho=inicioContrato>inicioMes?inicioContrato:inicioMes;
+     const fimTrabalho=b<fimMes?b:fimMes;
+     if(fimTrabalho>=inicioTrabalho){
+       const diasTrabalhados=dayDiff(inicioTrabalho,fimTrabalho)+1;
+       if(diasTrabalhados>=15) avos13++;
+     }
+   }
+ }
+ const thirteenth=(type==='Demissão por justa causa')?0:salary/12*avos13;
  const vac=Math.max(0,(salary/12)*(12*(b.getFullYear()-a.getFullYear())+(b.getMonth()+1)-(a.getMonth()+1)+1-(a.getDate()>15?1:0)-(b.getDate()<15?1:0)-(vacTaken*12)));
  const vacThird=vac/3;
  const fgtsAccum=fgtsMonth*(datedifMonths(a,b)+(b.getDate()>=15?1:0));
